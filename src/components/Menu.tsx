@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+import CartIcon from "./CartIcon";
+
 const menuLinks = [
   { id: 1, title: "Homepage", url: "/" },
   { id: 2, title: "Menu", url: "/menu" },
@@ -21,7 +23,9 @@ const Menu = () => {
   const renderedLinks = menuLinks.map((item) => {
     return (
       <div key={item.id}>
-        <Link href={item.url}>{item.title}</Link>
+        <Link href={item.url} onClick={() => setIsOpen(false)}>
+          {item.title}
+        </Link>
       </div>
     );
   });
@@ -36,15 +40,22 @@ const Menu = () => {
         height={20}
         onClick={() => setIsOpen((current) => !current)}
       />
-      <div className="bg-red-500 text-white absolute left-0 top-24 w-full h-[calc(100vh-6rem)] flex flex-col gap-8 items-center justify-center text-3xl z-10">
-        {renderedLinks}
-        {user ? (
-          <Link href="/orders">Orders</Link>
-        ) : (
-          <Link href="/login">Login</Link>
-        )}
-        <Link href="/cart">Cart</Link>
-      </div>
+
+      {isOpen && (
+        <div className="bg-red-500 text-white absolute left-0 top-24 w-full h-[calc(100vh-6rem)] flex flex-col gap-8 items-center justify-center text-3xl z-10">
+          {renderedLinks}
+          {user ? (
+            <Link href="/orders" onClick={() => setIsOpen(false)}>
+              Orders
+            </Link>
+          ) : (
+            <Link href="/login" onClick={() => setIsOpen(false)}>
+              Login
+            </Link>
+          )}
+          <CartIcon />
+        </div>
+      )}
     </div>
   );
 };
