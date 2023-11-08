@@ -17,7 +17,7 @@ const Menu = () => {
   // state for menu button
   const [isOpen, setIsOpen] = useState(false);
 
-  // state for logged user
+  // temporary state for logged user
   const [user, setUser] = useState(null);
 
   const renderedLinks = menuLinks.map((item) => {
