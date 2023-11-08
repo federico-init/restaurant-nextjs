@@ -15,6 +15,9 @@ const Menu = () => {
   // state for menu button
   const [isOpen, setIsOpen] = useState(false);
 
+  // state for logged user
+  const [user, setUser] = useState(null);
+
   const renderedLinks = menuLinks.map((item) => {
     return (
       <div key={item.id}>
@@ -35,8 +38,12 @@ const Menu = () => {
       />
       <div className="bg-red-500 text-white absolute left-0 top-24 w-full h-[calc(100vh-6rem)] flex flex-col gap-8 items-center justify-center text-3xl z-10">
         {renderedLinks}
-        <Link href="/login">Login</Link>
-        <Link href="/orders">Orders</Link>
+        {user ? (
+          <Link href="/orders">Orders</Link>
+        ) : (
+          <Link href="/login">Login</Link>
+        )}
+        <Link href="/cart">Cart</Link>
       </div>
     </div>
   );
