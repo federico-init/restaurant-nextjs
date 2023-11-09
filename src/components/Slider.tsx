@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 // mock data
@@ -24,19 +24,32 @@ const data = [
 
 const Slider = () => {
   // state for current slide
-  const [currentSlide, setCurrentSlide] = useState(1);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(
+      () =>
+        setCurrentSlide((current) =>
+          current === data.length - 1 ? 0 : current + 1
+        ),
+      4000
+    );
+
+    // cleanup
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)]">
+    <div className="flex flex-col lg:flex-row h-[calc(100vh-6rem)] md:h-[calc(100vh-9rem)] bg-orange-50">
       {/* TEXT CONTAINER */}
-      <div className="h-1/2 flex items-center justify-center flex-col gap-8 text-red-500 font-bold">
-        <h1 className="text-5xl md:text-6xl xl:text-7xl text-center uppercase p-4">
+      <div className="flex-1 flex items-center justify-center flex-col gap-8 text-red-500 font-bold">
+        <h1 className="text-5xl md:text-6xl xl:text-7xl text-center uppercase p-4 md:p-10">
           {data[currentSlide].title}
         </h1>
         <button className="bg-red-500 text-white py-4 px-8 ">Order Now</button>
       </div>
       {/* IMAGE CONTAINER */}
-      <div className="h-1/2 relative w-full">
+      <div className="flex-1 relative">
         <Image
           src={data[currentSlide].image}
           alt="home slider"
