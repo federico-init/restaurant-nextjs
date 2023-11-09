@@ -1,3 +1,13 @@
+import Featured from "@/components/Featured";
+import LimitedOffer from "@/components/LimitedOffer";
+import Slider from "@/components/Slider";
+
 export default function Home() {
-  return <div>Hello world</div>;
+  return (
+    <main>
+      <Slider />
+      <Featured />
+      <LimitedOffer />
+    </main>
+  );
 }
